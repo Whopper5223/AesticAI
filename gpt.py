@@ -1,6 +1,10 @@
 from dotenv import load_dotenv, dotenv_values
 from openai import OpenAI
 import os
+import base64
+import asyncio
+
+    
 
 
 load_dotenv()
@@ -9,6 +13,43 @@ var1 = os.getenv("OPENAI_KEY")
 client = OpenAI(
 api_key = var1
 )
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
+
+
+def diagnose(image_path):
+    base64img = encode_image(image_path)
+    response = client.chat.completions.create(
+  model="gpt-4o",
+  messages=[
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Analyze this image and diagnose the skin issue. Respond with only a word or two, like 'whiteheads' or 'acne scars'. Analyze the image and categorize under one of these:  acne scar, blackheads, dark spot, Eyebags, freckles, hyperpigmentation, rash, sunspots, whiteheads, wrinkles. ",
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url":  f"data:image/jpeg;base64,{base64img}"
+          },
+        },
+      ],
+    },
+    {
+            "role": "system",
+            "content": "Only respond in skin conditions. Only respond using one of these:acne scar, blackheads, dark spot, Eyebags, freckles, hyperpigmentation, rash, sunspots, whiteheads, wrinkles. For example, if given a picture of a man with whiteheads. The output should just be: whiteheads.  ",
+        },
+        {
+            "role": "assistant",
+            "content": "blackheads.",
+        },
+    ]
+    ) 
+    result = response.choices[0].message.content
+    return result
 
 def recommend_products(skin_issue):
     prompt = f"I have a skin issue: {skin_issue}. Please do extensive research to recommend me the right products for my problem. "
@@ -70,5 +111,5 @@ def learn_more_products(products):
     )  
     result = response.choices[0].message.content
     return result
-
+print(diagnose('/Users/unmeshreza/Desktop/ Screenshots/Screenshot 2024-11-10 at 4.00.28 AM.png'))
     
