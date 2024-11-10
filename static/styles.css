@@ -1,0 +1,88 @@
+/*------------------ GENERAL ------------------*/
+:root {
+    --bgColor: #E6E6F5;
+    --accentColor: #11163B;
+    --cardColor: #F8F8FA;
+    --btnColor: #E6E6F5;
+    --textPrimary: #000000;
+    --textSecondary: #4A4A4A;
+    --textTertiary: #5D669E;
+}
+
+body {
+    background-color: var(--bgColor);
+    font-family: roboto;
+}
+
+@font-face {
+    font-family: 'esther';
+    src: url('/static/esthetique.otf') format("opentype");
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    font-family: 'esther', sans-serif;
+    color: var(--accentColor);
+    font-weight: 100;
+    margin-bottom: -2px;
+}
+
+i {
+    vertical-align: bottom; /*Icon positioning 2/3*/
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#video {
+    border-radius: 15px;
+}
+
+h2 {
+    color: var(--accentColor);
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+
+.userOptions {
+    border-radius: 15px;
+    background-color: var(--cardColor);
+    padding: 20px;
+    padding-left: 50px;
+    padding-bottom: 35px;
+}
+
+button {
+    border: none;
+    background-color: var(--btnColor);
+    padding: 11px 11px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: 'roboto', sans-serif;
+    color: var(--textTertiary);
+    font-weight: 400;
+    margin-right: 10px;
+    cursor: pointer;
+    transition-duration: 0.45s; /*Ease out animation*/
+}
+
+button:hover{
+    opacity: 0.7;
+    transition-duration: 0.45s; /*Ease in animation*/
+}
+
+.diagnosisContent {
+    border-radius: 15px;
+    background-color: var(--cardColor);
+    padding: 20px;
+    padding-left: 50px;
+    margin-top: 20px;
+    height: max-content;
+}
+

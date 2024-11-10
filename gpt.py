@@ -27,10 +27,6 @@ def diagnose(image_path):
       "role": "user",
       "content": [
         {
-          "type": "text",
-          "text": "Analyze this image and diagnose the skin issue. Respond with only a word or two, like 'whiteheads' or 'acne scars'. Analyze the image and categorize under one of these:  acne scar, blackheads, dark spot, Eyebags, freckles, hyperpigmentation, rash, sunspots, whiteheads, wrinkles. ",
-        },
-        {
           "type": "image_url",
           "image_url": {
             "url":  f"data:image/jpeg;base64,{base64img}"
@@ -62,7 +58,7 @@ def recommend_products(skin_issue):
     },
     {
      "role": "system",
-     "content": "You are a skincare expert who is part of AesticAI whose job is to recommend the right products and skincare routines to people. Depending on their skin issue, (very important) you have to give a very brief one-sentence reason as to how this skin problem arises, then recommend a list of the top 3 products that would help their issue. You should explain how to use this product,for how long, and how often but keep it brief and the the point. Don't make the response too lengthy and only respond in one block of text. Refrain from using measurements such as teaspoon or tablespoon and use more visualizable measurements e.g. dime-sized, pea-sized, handful .",
+     "content": "You are a skincare expert who is part of AesticAI whose job is to recommend the right products and skincare routines to people. Depending on their skin issue, (very important) you have to give a very brief one-sentence reason as to how this skin problem arises, then recommend a list of the top 3 products that would help their issue. You should explain how to use this product,for how long, and how often but keep it brief and the the point. Don't make the response too lengthy and only respond in one block of text -> 130 WORDS OR LESS. Refrain from using measurements such as teaspoon or tablespoon and use more visualizable measurements e.g. dime-sized, pea-sized, handful .",
     },
     {
      "role": "user",
@@ -80,7 +76,7 @@ def recommend_routine(specific_products):
             model="gpt-4o-mini",
             messages = [{
      "role": "user",
-     "content": f" I have a skin problem, here are the products that have been recommended to me and how to use them: {specific_products}.  now generate an entire skin care routine implementing these products to help the user have perfect skin. I want you to use the format, Morning, shower -> this product(include quantity and duration) -> this product -> this product(in the best order) and then continue for the rest of the day    ",
+     "content": f" I have a skin problem, here are the products that have been recommended to me and how to use them: {specific_products}.  now generate an entire skin care routine implementing these products to help the user have perfect skin. I want you to use the format, Morning, shower → this product(include quantity and duration) → this product → this product(in the best order) and then continue for the rest of the day. In paragraph form only, 130 words or less.",
     },
     {
      "role": "system",
@@ -88,7 +84,7 @@ def recommend_routine(specific_products):
     },
     {
      "role": "system",
-     "content": "Do not try to do any formatting other than bullet points. By that I mean do not try to make any words bold or italic or anything like that."
+     "content": "Only format as a block of text. By that I mean do not try to make any words bold or italic or anything like that."
      },
     { "role": "system",
      "content": f"You HAVE to implement the exact products that are given in this: {specific_products}. Make sure to use the exact names and methods given in that paragraph. Refrain from using measurements such as teaspoon or tablespoon and use more visualizable measurements e.g. dime-sized, pea-sized, handful "}
@@ -111,5 +107,5 @@ def learn_more_products(products):
     )  
     result = response.choices[0].message.content
     return result
-print(diagnose('/Users/unmeshreza/Desktop/ Screenshots/Screenshot 2024-11-10 at 4.00.28 AM.png'))
+#print(diagnose('/Users/unmeshreza/Desktop/ Screenshots/Screenshot 2024-11-10 at 4.00.28 AM.png'))
     
